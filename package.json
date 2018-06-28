@@ -1,0 +1,20 @@
+{
+  "name": "mywebapp",
+  "version": "1.0.0",
+  "description": "this is my app",
+  "main": "star.js",
+  "node":"8.4.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node star.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "client-sessions": "^0.8.0",
+    "consolidate": "^0.15.1",
+    "json-server": "^0.12.2",
+    "log4js": "^2.5.3",
+    "mustache": "^2.3.0"
+  }
+}

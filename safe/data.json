@@ -1,0 +1,105 @@
+{
+  "articles": [
+    {
+      "time": "2018年5月5日18:38",
+      "title": "CSS实现块级元素居于页面之中",
+      "preview": "除了使用定位的方法实现元素居中之外这里主要介绍其他几种方法：",
+      "content": "\n    除了使用定位的方法实现元素居中之外这里主要介绍其他几种方法：\n\n水平居中\n若是文本内容居中则可以在其父元素设置text-alagin:center;若是块级元素则可以设置margin-left:auto; margin-right-auto; 也可以写成margin:0 auto 0 auto;\n\n垂直居中\n1.对于文字,可以用增高行距的办法变通实现垂直居中，示范代码如下：\n<pre>\n#center{ \n        margin-right: auto;\n        margin-left: auto;\n        height:200px;  \n        vertical-align:middle;  \n        line-height:200px;\n        }\n#<div id=”center”>##<p>#test content#</p># #</div>\n</pre>\n说明： vertical-align:middle;表示行内垂直居中，我们将行距增加到和整个DIV一样高line-height:200px;然后插入文字，就垂直居中了。\n2. 对于图片垂直居中我们可以使用设置背景图片的方法。举例：\n\nbody{\nbackground:url(”sample.gif”) #FFF no-repeat center;\n}\n关键就在于这个Center属性，它表示让该背景图片在容器中居中。你也可以把Center换成Top Left或者直接写上数字来调整它的位置。\n既水平居中又垂直居中或者叫完全居中\n代码如下：\n\nperfact_center{\npostion:absolute;\nmargin:auto;\ntop:0;\nright:0;\nleft:0;\nbottom:0;\n}\n前提是需声明块级元素的高度，优点是可以随着浏览器的宽度变化和高度变化而完全居中，兼容性好，可适应IE（8+），图片元素也可以应用。注意不适应Windows Phone\n\n若想了解更多CSS居中方法可以点击这个网址http://blog.jobbole.com/46574/上面有更多CSS居中方法。            ",
+      "id": "3"
+    },
+    {
+      "time": "2018年5月5日18:38",
+      "title": "javascript继承方法（一）",
+      "preview": "一，原型链继承 原型链式是创建了A实例并赋给B的原型使B拥有了A的属性和方法，这种继承方式实质是重写了B的原型对象。",
+      "content": "\n       一，原型链继承\n[javascript] view plain copy\nfunction A() {  \n    this.name = \"jiang\";  \n    this.age = 20;  \n    this.method = function () {  \n        console.log(\"I will be better!\")  \n    }  \n}  \nA.prototype.like = \"paly\";  \nfunction B() {  \n  \n}  \nB.prototype = new A();  \nvar b = new B();  \nconsole.log(b.name);      //jiang  \nconsole.log(b.age);      //20  \nconsole.log(b.like);    //paly  \nb.method();            //I will be better!  \n\n\n原型链式是创建了A实例并赋给B的原型使B拥有了A的属性和方法，这种继承方式实质是重写了B的原型对象。\n二，Object（）方法\n1，\n[javascript] view plain copy\nvar person = {  \n  name : \"jiang\",  \n  age : 19,  \n  car : ['Alto','Ford'],  \n  method1:function () {  \n      console.log(\"Hi !\");  \n  }  \n};  \nvar anotherPerson = Object(person);  \nconsole.log(anotherPerson.name);               //jiang  \nconsole.log(anotherPerson.age);               //19  \nanotherPerson.car.push('changan');  \nconsole.log(anotherPerson.car);             //[ 'Alto', 'Ford', 'changan' ]  \n  \nvar yetantherPerson = Object(person);  \nyetantherPerson.car.push(\"BMW\");  \nconsole.log(yetantherPerson.car);        //[ 'Alto', 'Ford', 'changan' ]  \nconsole.log(person.car);                //[ 'Alto', 'Ford', 'changan', 'BMW' ]  \n\nobject()函数以person对象为原型创建了2个新的对象anotherPerson和yetanotherperson,person中的属性方法为两个对象所共有\n相当于创建了两个person的副本。\n2，\n[javascript] view plain copy\nvar anotherperson1 = Object.create(person,{  \n    name : {  \n        value : 'tom'  \n    }  \n});  \nconsole.log(anotherperson1.name);                //tom  \nconsole.log(anotherperson1.age);                //19  \nvar anotherperson2 = Object.create(person,{  \n    color :{  \n        value : ['blue','green']  \n    }  \n});  \nconsole.log(anotherperson2.name);           //jiang  \nconsole.log(anotherperson2.color);          //[ 'blue', 'green' ]  \nobject.create()同上述Object（）一样，不过它规范了原型式继承，它有两个参数第一个是要继承的对象，第二个是\n想要改变或重写的属性，如果超类对象中有相同属性则覆盖其值，没有则创建新的属性\n此方法只能覆盖和创建的只是在子类对象中，而不是覆盖和创建在超类中。\n         ",
+      "id": "22v3gen"
+    },
+    {
+      "time": "2018年5月5日18:38",
+      "title": "javascript继承方法（二）",
+      "preview": "三，组合继承运行结果：\n[ 'yellow', 'black', 'green', 'red' ]\njiang\n20\n[ 'yellow', 'black', 'green' ]\njiang1\n21",
+      "content": "三，组合继承\n[javascript] view plain copy\nfunction SuperType(name) {  \n    this.name = name;  \n    this.color = ['yellow','black','green'];  \n}  \nSuperType.prototype.sayName = function () {  \n  console.log(this.name);  \n};  \nfunction SubType(name,age) {  \n    //构造函数继承SuperType 的属性  \n    SuperType.call(this,name);  \n    this.age = age;  \n}  \n//原型继承了SuperType的属性和方法包括原型里的方法和属性  \nSubType.prototype = new SuperType();  \nSubType.prototype.sayAge = function () {  \n    console.log(this.age)  \n};  \nvar s = new SubType(\"jiang\",20);  \ns.color.push(\"red\");  \nconsole.log(s.color);  \ns.sayName();  \ns.sayAge();  \nvar s1 = new SubType(\"jiang1\",21);  \nconsole.log(s1.color);  \ns1.sayName();  \ns1.sayAge();  \n运行结果：\n[ 'yellow', 'black', 'green', 'red' ]\njiang\n20\n[ 'yellow', 'black', 'green' ]\njiang1\n21\n\n四，寄生式继承\n[javascript] view plain copy\nfunction createAnother(original){  \n    var clone = Object(original); //通过函数创建一个继承对象  \n    clone.saySomething = function () {  \n        console.log(\"what\");  \n    };  \n    return clone;  \n}  \nvar person ={  \n    name : 'Dived',  \n    age : 29  \n};  \nvar p1 = createAnother(person);  \nconsole.log(p1.name);  \nconsole.log(p1.age);  \np1.saySomething();  \n运行结果：\nDived\n29\nwhat\n\n寄生式继承式创建一个封装继承过程的函数，该函数以某种方式增强对象，最后返回这个继承对象\n                ",
+      "id": "Q7ElC77"
+    },
+    {
+      "time": "2018年5月5日18:38",
+      "title": "Javascript继承方法（三）",
+      "preview": "五，构造函数 call()方法继承 运行结果：\nwang 20\nit is worth.\njiang 20\nit is worth.\nundefined\njack\n  这种方法实质是调用了call的方法将this指向了superText的作用域，从而获得了其属性方法的继承，当我想要调用superText的原型属性时是undefined,说明此方法不能继承到它的原型属性和方法",
+      "content": "五，构造函数 call()方法继承\n[javascript] view plain copy\nfunction superText(name) {  \n    this.name = 'jiang';  \n    this.age = 20;  \n    this.method = function () {  \n        console.log(\"it is worth.\")  \n    }  \nsuperText.prototype.like=\"play\";  \n}  \nfunction subText() {  \n    //构造函数继承了superText(并不能继承到superText的原型的属性和方法)  \n    superText.call(this);  \n}  \nvar  s = new subText();  \ns.name = 'wang';  \nconsole.log(s.name+\" \"+ s.age);  \ns.method();  \nvar  s1 = new subText();  \nconsole.log(s1.name+\" \"+ s1.age);  \ns1.method();  \nconsole.log(s.like);  \n////////////////////传递参数  \nfunction superTYpe(name) {  \n    this.name = name;  \n}  \nfunction grangsonText() {  \n    superTYpe.call(this,\"jack\");  \n}  \nvar g = new grangsonText();  \nconsole.log(g.name);  \n运行结果：\nwang 20\nit is worth.\njiang 20\nit is worth.\nundefined\njack\n  这种方法实质是调用了call的方法将this指向了superText的作用域，从而获得了其属性方法的继承，当我想要调用superText的原型属性时是undefined,说明此方法不能继承到它的原型属性和方法\n\n六，寄生组合式继承\n[javascript] view plain copy\nfunction inheritPrototype(subType,superType) {  \n    var prototype = Object(superType.prototype);  \n    prototype.constructor = subType;  \n    subType.prototype = prototype;  \n}  \nfunction SuperType(name) {  \n    this.name = name;  \n    this.color = ['red','green','black'];  \n}  \nSuperType.prototype.sayName = function () {  \n  console.log(this.name);  \n};  \nfunction SubType(name,age) {  \n    SuperType.call(this,name);  \n  \n    this.age = age;  \n}  \ninheritPrototype(SubType,SuperType);  \nSubType.prototype.sayAge = function () {  \n    console.log(this.age);  \n};  \nvar s = new SubType('tomjack',19);  \ns.sayName();  \ns.sayAge();  \nconsole.log(s.color);  \n运行结果：\ntomjack\n19\n[ 'red', 'green', 'black' ]\n\ninheritPrototype()函数接受两个参数：子类型的构造函数和超类型的构造函数。在函数内部第一步式创建一个超类型的原型副本\n第二步为创建的副本添加constructor属性，从而弥补重写原型而失去默认的constructor属性，最后一步讲创建的副本赋值给子类型的原型。\n特点 ： 只调用了一次SuperType构造函数，高效，避免了在Subtype.prototype上创建了不必要的，多余的属性。\n\n说明：此段代码摘抄至《JavaScript高级程序设计》这本书的讲原型部分\n                ",
+      "id": "oYnh9WX"
+    },
+    {
+      "time": "2018年5月5日18:38",
+      "title": "基础算法学习之排序篇（js实现）",
+      "preview": "1，最近在看 啊哈算法，觉得很有趣，特把其中有意思的算法记下来，\n\n简易的桶排序法",
+      "content": "1，最近在看 啊哈算法，觉得很有趣，特把其中有意思的算法记下来，\n\n简易的桶排序法\n[javascript] view plain copy\nvar a =  new Array(2,5,3,4,6,8,4,4,2,9);  \nvar b = new Array(10); //标记数组  \nvar d = new Array();  //存放数组  \nvar i,j;  \nfor (i=0;i<=11;i++){  \n    b[i] =0;  \n}  \nfor( i=0,j=1;i <=10;i++,j++){  \n     var c =a[i];  \n    b[c]++;  \n}  \nfor (i=0;i<=10;i++){  \n    for (j =1;j<=b[i];j++) {  \n        d.push(i);  \n    }  \n}  \nconsole.log(d);  \n运行结果：\n[ 2, 2, 3, 4, 4, 4, 5, 6, 8, 9 ]\n 该算法实际是讲一列数组中的所有数都标记在一个数组里，最后在从小到大打印出现的次数所对应的数此算法优点是时间快，\n 缺点是如果数组的范围太过庞大就会出现异常，比如超过4 294 967 295。\n 算法时间度为O(M+N)\n冒泡排序\n[javascript] view plain copy\nvar c = new Array(1,8,6,18,16,548,21,5,63);  \nvar i,j;  \nfor(j=0;j<c.length-1;j++){  \n    for (i = 0;i <=c.length-1;i++){  \n        if(c[i]>c[i+1]){  \n            var d = c[i+1];  \n            c[i+1] = c[i];  \n            c[i] = d;  \n        }  \n    }  \n}  \nconsole.log(c);  \n运行结果：\n[ 1, 5, 6, 8, 16, 18, 21, 63, 548 ]\n\n上面的冒泡算法实现是按照每次比较相邻的两个数，把较大的数放在较小数的后面，依次比较到数组的最后一项\n这时会发现最大的一位数已经交换到最后一位，称为归位，说明有一位数已经排好了，这一过程先称为一趟，接下来\n接下来从新从数组的第一位开始相邻比较，交换位置，归位第二大的数，这样总共要经历n-1（假设有n个数组）趟。\n该算法是双重嵌套循环所以这个算法的时间复杂度O(N^2).\n缺点是时间复杂度高，效率低。\n\n快速排序\n[javascript] view plain copy\nvar e = new Array(13,45,4,45,3,1,53,87,1,5);  \nfunction quicksort(left,right) {  \n    var i,j,t,temp;  \n    if(left>right)return;  \n    temp = e[left];  \n    i=left;  \n    j=right;  \n    while (i!=j){  \n        while(e[j]>=temp && i <j){  \n            j--;  \n        }  \n        while(e[i]<=temp && i <j){  \n            i++;  \n        }  \n        if(i<j){  \n            t = e[i];  \n            e[i] = e[j];  \n            e[j] = t;  \n        }  \n    }  \n    e[left] =e[i];  \n    e[i] = temp;  \n    quicksort(left,i-1);  \n    quicksort(i+1,right);  \n    return;  \n}  \nquicksort(0,e.length-1);  \nconsole.log(e);  \n运行结果：\n[ 1, 1, 3, 4, 5, 13, 45, 45, 53, 87 ]\n\n快速排序法是采用“二分法”的思想，先用一个基数去比较，将要排序的数组分成两分，然后通过递归一一将\n所有基数归位，具体过程如下\n选取数组中最左边的基数是13\n1  5  4  1  3  13  53  87  45  45 这是第一趟的结果 可以看到13把数组分为两半，并且自己位置也排好称为归位，接下来进入递归\n1                                               选取的基数为1,1归位。接着在右递归\n   3  4  1  5                                基数为5，归位，接着在左递归\n   1  3  4                                    基数为3，归位，接着在左递归\n   1                                            基数为1，归位，接着在右递归\n           4                                    基数为4，归位，接着在基数13的右边递归（实质是第一次的所有递归完成，进行下一步右递归）。\n      ...（此处省略13以右排序，与左边相同）\n1  1  3  4  5  13 ...\n快速排序算法优点是算法比较快速高效，由于基数取得是第一位，并不是每次都能将数组很好的“二分”所以它的平均算法的时间复杂度O(NlogN)。\n\n\n快速排序算法是最常用的算法之一，JavaScript中sort()方法就是快速排序。\n                ",
+      "id": "yOq~Xbm"
+    },
+    {
+      "time": "2018年5月5日18:38",
+      "title": "json-server传递请求的方式",
+      "preview": "在做页面开发时要用到后台的接口，为了方便起见我使用了json-server免去了再去写后台接口，（想要了解json-server的这里附上GitHub地址https://github.com/typicode/json-server/blob/master/README.md）这里只详细说明向json-server发送post请求方式\n\n    这里用的ajax发的请求",
+      "content": "\n  在做页面开发时要用到后台的接口，为了方便起见我使用了json-server免去了再去写后台接口，（想要了解json-server的这里附上GitHub地址https://github.com/typicode/json-server/blob/master/README.md）这里只详细说明向json-server发送post请求方式\n\n    这里用的ajax发的请求\n\n1，keyValue\n\n[javascript] view plain copy\nvar xhr = new XMLHttpRequest();  \nxhr.open(\"post\",\"http://localhost:3000/posts/\");  \nxhr.setRequestHeader(\"Content-type\",\"application/x-www-form-urlencoded\");  \nxhr.onload=function () {  \n    console.log(\"执行完毕\");  \n    console.log(xhr.responseText);  \n}  \nxhr.send(\"id=\"+id+\"&name=\"+name+\"&age=\"+age);  \n这里将请求头部设置为application/x-www-form-urlencoded send请求发送的数据格式就要写成key1=value1&key2=value2的形式\n2，json\n[javascript] view plain copy\nvar a = {  \n            \"id\":1234,  \n            \"name\":\"jack\",  \n            \"age\":18  \n        };  \n         var data = JSON.stringify(a)  \n var xhr = new XMLHttpRequest();  \n        xhr.open(\"post\",\"http://localhost:3000/posts/\");  \n        xhr.setRequestHeader(\"Content-type\",\"application/json\");  \n        xhr.onload=function () {  \n            console.log(\"执行完毕\");  \n            console.log(xhr.responseText);  \n        }  \n        xhr.send(data);  \n发送json时将请求头部设置为application/json，应为ajax不能将对象发送到后台，所以还要将json对象转译成字符串格式然后在发送。\n\n比如我使用json-server时创建的data.json里是这样的（这里就不详细说明json-server的使用方式了）\n\n{\n  \"posts\": [\n    { \n      \"id\":123456,\n      \"name\":\"tom\",\n      \"age\":17\n    }\n  ]\n}\n\n用上面第二种json方式运行之后data.json文件结果如下\n{\n  \"posts\": [\n    { \n      \"id\":123456,\n      \"name\":\"tom\",\n      \"age\":17\n    }，{\n      \"id\": 1234,\n      \"name\": \"jack\",\n      \"age\": 18\n    }\n  ]\n}              ",
+      "id": "M_YSgcO"
+    },
+    {
+      "title": "git的常见命令",
+      "preview": "git的常用命令有如下几条",
+      "content": "将远程仓库项目拉取下来：git clone +仓库git 地址\n查看自己项目与git库中对比差异 git status\n添加新创建的文件 git add -A\n上传文件的并添加描述 git commit -m''文件描述''\n推送到远程git 仓库主分支 git push ",
+      "time": "2018年6月3日15:04",
+      "id": "o6pWO6A"
+    },
+    {
+      "title": "react解绑事件",
+      "preview": "react解绑事件",
+      "content": "在react开发中如果我们对页面监听了一个事件，那么我们一定要在组件销毁的时候对事件进行一个解绑，否则，该监听的事件会一直存在于该页面上，会对其他的组件造成影响。\n\n例如下面\nclass A extends React.Component{\n\nscrollHandler = this.handleScroll.bind(this);\n    componentDidMount(){\n        //监听页面滚动事件\n        window.addEventListener('scroll', this.scrollHandler);\n    }\n    handleScroll(e){\n        var scrollTop = e.srcElement.documentElement.scrollTop;\n        var slider = ReactDOM.findDOMNode(this.refs.siderBar);\n        var sliderOffsetTop = slider.offsetTop ;\n        var a = sliderOffsetTop - scrollTop;\n         console.log(a);\n\n    }\n      render(){\n        .....\n   }\n}\n我监听了一个滚动条的事件，打印输出的内容是页面上slider这个元素据浏览器顶部的值，在A组件销毁的时候应该要对'scroll'解绑，比如这样\n\n  componentWillUnmount(){\n        window.removeEventListener('scroll',this.scrollHandler,false)\n    }\n",
+      "time": "2018年6月9日21:57",
+      "id": "FKo3r0c"
+    },
+    {
+      "title": "SEO优化",
+      "preview": "SEO优化",
+      "content": "SEO（Search Engine Optimization）:汉译为搜索引擎优化。搜索引擎优化是一种利用搜索引擎的搜索规则来提高目前网站在有关搜索引擎内的自然排名的方式。做好SEO优化有利于网站在搜索引擎的排名并提升网站的推广。这里的介绍SEO优化主要从前端方面。                                       \n\n网页结构部分\n\n1.采用行为，表现，结构分离，不要将css和js代码都写到一个页面中，这会使页面冗杂，结构混乱，还不利于页面性能。\n\n2，将引入外部JavaScript链接放在body之后，便于在页面先解析在加载js，整体提升用户体验。\n\n2，提高页面的性能，如果页面上有很多小图片可以将它们合成一张图片，然后利用background-position来显示图片的合理位置。\n\n3.减少页面的链接请求，对于不重要没有意义的链接可以为其添加rel=''nofollow''属性。\n\n4.减小页面的深度，对于网站做扁平的处理，减少目录层次。\n\n5，搜索引擎对HTM5和css3更加青睐。\n\n代码部分\n\n合理地使用html标签，使标签语义化，为表现的内容使用合理的标签。\n\n1，合理的使用h1-h6标签将提高搜索引擎对于关键字的权重。\n\n2，主导航可以使用<nav>标签\n\n3，对于<img>标签必须要为其设置title，和alt属性。title对图片说明，alt用于图片在未加载时进行替换。\n\n4，表格应该使用<caption>表格标题标签\n\n5，对于想要强调重要的内容或信息可以使用<strong>标签，<em>标签仅次于<strong>。",
+      "time": "2018年6月10日15:28",
+      "id": "FnXMXaD"
+    },
+    {
+      "title": "简单上手前端构建工具webpack",
+      "preview": "简单上手前端构建工具webpack",
+      "content": "今天看了慕课网的webpack教程视屏，看的时候挺简单的，但是后来自己上手的时候发现了许多的问题，特在此记录下来。\n\n首先老师那时候用的是webpack1.10版本的，到我这个时候已近发展到webpack4.0了，所以用法上的差异还是挺大的，我这里的webpack版本用的是4.8.3。下面是详细过程\n\n1.首先建一个文件夹，然后进入文件夹\n在命令行中输入\n\nmkdir webpack_demo \n\ncd webpack_demo\n\n2,构建项目，安装webpack\nnpm init\n\nnpm install webpack --save-dev\n\nnpm install webpack -g           //（全局安装，可选，方便与后面的命令行工具使用）\n\nnpm install webpack-cli -D  //安装单独的命令行工具\n\nmkdir dist                               //创建dist文件夹用于存放打包生成bundles\n\n3.配置webpack.config.js文件\n先创建webpack.config.js文件并输入以下内容\n<pre>\nvar path = require('path'); //引用path模块用于后面生成绝对路径\nmodule.exports = {\n    mode: 'development',  \n    entry: './hellow.js',\n    output: {\n        path: path.resolve(__dirname, './dist'),\n        filename: 'hellow.bould.js'\n    },\n    module: {\n        rules: [\n            {\n                test: /\\.css$/,\n                use: [\n                    {\n                        loader: 'style-loader'\n                    },\n                    {\n                        loader: 'css-loader'\n                    }\n                ]\n            }\n        ]\n    }\n}\n</pre>\n其中exports中最重要的是entry属性，output属性\n\nentry用于要打包的入口文件\n\noutput输出打包生成的文件，其中path是输出文件的绝对路径，filename文件名\n\nmode,模式不同的属性值有不同的代表生成的代码的形式主要有如下两种模式\n\ndevelopment:表示开发环境，打包生成的bundles未压缩，利于开发人员阅读\n\nproduction:生产环境，生成的bundles代码经过压缩，性能更好\n\nloader：配置加载器，上面配置了两个加载器，style-loader和css-loader,用于加载css文件\n\n4.安装style-loader和css-loader。\n在命令行中输入 npm install style-loader --save-dev\n\n                           npm install css-loader --save-dev\n\n5.构建你想要打包的文件，我这里是创建了body.css,a.js,hellow.js,其中hellow.js 是入口文件\nbody.css\n\nbody{\nbackground:red;\n}\na.js\n\nfunction a(){\nconsole.log('hellowworld!!');\n}\na();\nhellow.js\n\nrequire('./a.js');\nrequire('./body.css');\nfunction hellow(str){\nalert(str);\n}\nhellow('hellow');\n6.webpack打包\n在命令行输入 webpack \n\n\n\n7.创建一个测试用的html\ndemo.html\n\n#<!DOCTYPE html>\n#<html lang=\"en\">\n#<head>\n    #<meta charset=\"UTF-8\">\n    #<title>#Title</title>\n    #<script src=\"dist/hellow.bould.js\">#</script>\n#</head>\n#<body>\n\n#</body>\n#</html>\n\n8.在浏览器中打开这个测试文件的HTML文件\n你会发现是先弹出警告框然后背景色变红，控制台显示hellowworld再看一下页面结构\n\n\n\ncss样式被自动插入到页面中了，说明webpack打包成功OK这里就结束了",
+      "time": "2018年6月10日15:24",
+      "id": "263aXM~"
+    },
+    {
+      "title": "构建react项目步骤",
+      "preview": "构建react项目步骤",
+      "content": "现在构建项目的步骤：\n\n    1.全局安装 yo和 generator-react-webpack\n\nnpm install -g yo\nnpm install -g generator-react-webpack\n\n2.可以自己手动创建一个放项目的文件夹(gallery),并进入到该文件夹\ncd gallery\n3.在项目的根目录(gallery)下 yo react-webpack\n4..在项目的根目录安装css属性的前缀 npm install autoprefixer\n5.npm start 启动，在 下产看",
+      "time": "2018年6月10日15:51",
+      "id": "lO8LKWQ"
+    },
+    {
+      "title": "常用插件的cdn地址",
+      "content": "收集了一些常用的cdn地址，总结如下\n   \nJQuery：https:/cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js\n一个封装了音乐播放器的插件：https:/cdnjs.cloudflare.com/ajax/libs/jplayer/jquery.jplayer.min.js",
+      "time": "2018年6月10日16:08",
+      "id": "OEas5_R"
+    },
+    {
+      "title": "总结学习react 中遇到的常见的错误",
+      "content": "浏览器报错：Cannot read property 'progress' of null at AppComponent.render\n解决方法：\n 1.用的es6新版的class语法的话，将getInitialState替换成一个构造函数如下\nconstructor(props) {\n    super(props);\n    this.state = {date: new Date()};\n  }\n 2，检查有没有初始化这个值 ",
+      "time": "2018年6月10日16:09",
+      "id": "~l8IbAN"
+    }
+  ],
+  "suggestion": [
+    {
+      "time": "2018年6月10日12:02",
+      "fakername": "someone",
+      "e-mail": "some@qq.com",
+      "message": "testfor this",
+      "id": 2
+    }
+  ],
+  "count": {
+    "countNumber": 10
+  }
+}
