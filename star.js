@@ -162,10 +162,10 @@ server.delete('/removeSugg/:userid',function(req,res){
 // 	}
 // })
 server.post('/enter', function(req, res) {
-            if (req.body.name=='13296570239') {
+            if (req.body.name=='your_login_name') {
                 // res.render('login.jade', { error: 'Invalid email or password.' });
 
-                if(req.body.userpassword =='wangjiang1024') {
+                if(req.body.userpassword =='your_login_password') {
 
                     // sets a cookie with the user's info
                     req.session.user = manage;
